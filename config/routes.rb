@@ -1,6 +1,14 @@
 Br3blog::Application.routes.draw do
-  resources :articles
+ 
   root :to => 'articles#index'
+  resources :articles do
+    resources :comments
+  end
+  resources :users
+  resource :session
+  
+  match '/login' => "sessions#new", :as => "login"
+  match '/logout' => "sessions#destroy", :as => "logout"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
